@@ -27,5 +27,5 @@ Route::group([
 ], function ($router) {
     Route::get('/{id}', [UserController::class, 'get'])->name('get');
     Route::put('/update', [UserController::class, 'update'])->name('update');
-    Route::delete('/remove', [UserController::class, 'remove'])->name('remove');
+    Route::delete('/remove', [UserController::class, 'remove'])->name('remove')->middleware('role:admin');
 });

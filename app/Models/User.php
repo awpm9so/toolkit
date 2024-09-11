@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
@@ -54,5 +55,33 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+        /**
+     * Связь многие ко многим с {@see Role}
+     *
+     * @return BelongsToMany
+     */
+    public function roles(): BelongsToMany
+    {
+        return $this->belongsToMany(Role::class);
+    }
+
+    /**
+     * Проверить наличие роли у пользователя
+     *
+     * @param ...$roles
+     *
+     * @return bool
+     */
+    public function hasRole(...$roles): bool
+    {
+        foreach ($roles as $role)
+        {
+            if ($this->roles()->get()->contains('slug', $role))
+                return true;
+        }
+
+        return false;
     }
 }

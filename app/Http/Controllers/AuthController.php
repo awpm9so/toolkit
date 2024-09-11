@@ -36,23 +36,19 @@ class AuthController extends Controller
     {
         $validated = $request->validated();
 
-        $credentials = $request->only('email', 'password');
-
-        $token = Auth::attempt($credentials);
+        $token = Auth::attempt($validated);
 
         if (!$token) {
             return response()->json(['message' => 'Unauthorized'], 401);
         }
 
-        $user = Auth::user();
-        
         return response()->json([
-                'user' => $user,
-                'authorisation' => [
-                    'token' => $token,
-                    'type' => 'bearer',
-                ]
-            ]);
+            'user' => Auth::user(),
+            'authorisation' => [
+                'token' => $token,
+                'type' => 'bearer',
+            ]
+        ]);
     }
 
     public function logout()
@@ -79,4 +75,4 @@ class AuthController extends Controller
     {
         return response()->json(Auth::user());
     }
-} 
+}

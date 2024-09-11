@@ -174,6 +174,7 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'not_enough_rights' => 'Not enough rights.'
     ],
 
     /*
