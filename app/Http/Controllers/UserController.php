@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\User\GetUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
+use App\Http\Requests\User\RemoveUserRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
@@ -28,5 +29,16 @@ class UserController extends Controller
         $user->update($validated);
 
         return response()->json($user);
+    }
+
+    public function remove(RemoveUserRequest $request)
+    {
+        $validated = $request->validated();
+
+        $user = User::findOrFail($validated['id']);
+
+        $user->delete();
+
+        return response()->json(['message' => 'The user was deleted successfully']);
     }
 }
