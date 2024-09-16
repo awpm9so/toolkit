@@ -12,9 +12,6 @@ class GetUserRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        /**
-         * TODO: Добавить проверку: досутпно только админу и самому себе
-         */
         return Auth::check();
     }
 
@@ -25,9 +22,9 @@ class GetUserRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'id' => 'required|numeric|exists:users',
-        ];
+        // return [
+        //     'id' => 'required|numeric|exists:users',
+        // ];
     }
 
     /**

@@ -12,9 +12,6 @@ class UpdateUserRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        /**
-         * TODO: Добавить проверку: досутпно только админу и самому себе
-         */
         return Auth::check();
     }
 

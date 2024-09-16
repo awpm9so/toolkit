@@ -11,11 +11,11 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function get(GetUserRequest $request)
+    public function get(User $user)
     {
-        $validated = $request->validated();
+        // $validated = $request->validated();
 
-        $user = User::findOrFail($validated['id']);
+        // $user = User::findOrFail($validated['id']);
 
         if (Auth::user()->cannot('get', $user)) {
             return response(['message' => __('validation.custom.not_enough_rights')], 403);
