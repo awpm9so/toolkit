@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Statement extends Model
 {
@@ -28,4 +29,14 @@ class Statement extends Model
     protected $hidden = [
         'user_id', //TODO открыть для админа
     ];
+
+    /**
+     * Связь один ко многим с {@see File}
+     *
+     * @return BelongsToMany
+     */
+    public function files(): HasMany
+    {
+        return $this->hasMany(File::class);
+    }
 }

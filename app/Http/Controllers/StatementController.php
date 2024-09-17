@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Statement\StoreStatementRequest;
 use App\Http\Requests\Statement\UpdateStatementRequest;
 use App\Models\Statement;
-use App\Models\StatementFile;
+use App\Models\File;
 use Illuminate\Support\Facades\Auth;
 
 class StatementController extends Controller
@@ -44,16 +44,15 @@ class StatementController extends Controller
 
         $statement->update($validated);
 
-        // if (($validated('files')))
-        // {
-            $path = $request->file('files')->store('statements');
-            StatementFile::create([
-                'statement_id' => $statement->id,
-                'path' => $path,
-            ]);
-        // }
+        if ($request->has('file')) {
+            $path = $request->file('file')->store('statements');
+            $file = new File(['path' => $path]);
+            $statement->files()->save($file);
+        }      
 
-        return response()->json($statement);
+        $files = $statement->files();
+        
+        return response()->json($files);
     }
 
     public function remove(Statement $statement)

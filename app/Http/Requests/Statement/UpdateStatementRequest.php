@@ -26,7 +26,7 @@ class UpdateStatementRequest extends FormRequest
             // 'id' => 'required|numeric|exists:statements',
             'name' => 'string|max:255',
             'description' => 'string|max:65535',
-            'files' => 'file'
+            'file' => 'file'
         ];
     }
 }
